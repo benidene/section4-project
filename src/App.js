@@ -2,6 +2,7 @@ import React, { lazy } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './App.css';
+import BlogList from './todoComponents/TodoList';
 
 const Navbar = lazy(() => import('./components/Navbar'));
 const CreateTodo = lazy(() => import('./todoComponents/CreateTodos'));
@@ -15,7 +16,6 @@ function App() {
   /* 해당 hook은 반복이 되는 부분이 있으므로 어떻게 custom hook으로 만들 수 있을지 고민해 봅시다. */
   /* util 폴더 내에 존재하는 useFetch에 custom hook을 작성해 주세요. */
   useEffect(() => {
-    setTimeout(() => {
       fetch('http://localhost:3001/todos')
       .then(res => {
         if (!res.ok) {
@@ -26,11 +26,11 @@ function App() {
       .then(data => {
         settodos(data);
         setError(null);
+        console.log(data)
       })
       .catch(err => {
         setError(err.message);
       })
-    }, 1000);
   }, [])
 
   return (
@@ -40,6 +40,7 @@ function App() {
                     <Navbar />
                     <div className="content">
                       <useInput />
+                      <BlogList todos={todos} /> 
                         <Routes>
                             <Route path="/create" element={<CreateTodo todos={todos} />} />
                         </Routes>

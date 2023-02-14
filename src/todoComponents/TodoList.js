@@ -11,6 +11,7 @@ const BlogList = ({ todos }) => {
             </div>
             ))}
         </div>
+        
     )
   }
   
